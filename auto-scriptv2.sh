@@ -8,7 +8,8 @@ current_date=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Check if log.txt exists and read the current number
 if [ -f "$log_file" ]; then
-    number=$(tail -n 1 "$log_file" | cut -d' ' -f3)
+    last_entry=$(tail -n 1 "$log_file")
+    number=$(echo "$last_entry" | awk '{print $NF}')
     number=$((number + 1))
 else
     # Set the initial number if log.txt doesn't exist
